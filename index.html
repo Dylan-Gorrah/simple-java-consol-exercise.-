@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Coffee Machine — Java Classes &amp; Methods</title>
 <meta name="description" content="A beginner Java exercise: two classes, one main method, three methods that print coffee drinks. Mark yourself as you go.">
-<meta name="theme-color" content="#F7F4EF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#13100D" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F7F4EF" id="tc">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Coffee Machine">
@@ -18,9 +17,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..800,0..100,0..1&family=Instrument+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<script>
-  (function(){ try{ var t=localStorage.getItem('cm-theme'); if(t){document.documentElement.setAttribute('data-theme',t);} }catch(e){} })();
-</script>
 
 <style>
 /* ============================================================
@@ -83,23 +79,6 @@
   --veil-a:rgba(19,16,13,.55); --veil-b:rgba(19,16,13,.92);
   --liquid:#8A5230; --liquid-2:#C07C4C;
 }
-@media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --s0:#13100D; --s1:#1E1916; --s2:#28221C; --s3:#332B24;
-    --line:#3B332B; --line-2:#4A4038;
-    --fg:#E6DFD5; --fg-soft:#A0958A;
-    --accent:#DDA07A; --accent-txt:#DDA07A;
-    --on-accent:#13100D;
-    --ok:#9CC98B; --bad:#E8776A;
-    --tm-bg:#1E1916; --tm-bd:#3B332B; --tm-fg:#E6DFD5; --tm-dim:#A0958A; --tm-amber:#DDA07A;
-    --w-body:430; --w-med:520; --w-strong:610; --w-mono:500;
-    --w-h1:400; --w-h2:450; --w-h3:520;
-    --lift:none; --lift-lg:none;
-    --grain:.04; --bloom:0; --vign:.5;
-    --veil-a:rgba(19,16,13,.55); --veil-b:rgba(19,16,13,.92);
-    --liquid:#8A5230; --liquid-2:#C07C4C;
-  }
-}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -146,10 +125,6 @@ body::after{
 .theme .sun{opacity:0;transform:rotate(-100deg) scale(.4)}
 :root[data-theme="dark"] .theme .moon{opacity:0;transform:rotate(100deg) scale(.4)}
 :root[data-theme="dark"] .theme .sun{opacity:1;transform:none}
-@media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .theme .moon{opacity:0;transform:rotate(100deg) scale(.4)}
-  :root:not([data-theme="light"]) .theme .sun{opacity:1;transform:none}
-}
 
 /* ============ type ============ */
 h1,h2,h3{font-family:'Fraunces',ui-serif,Georgia,serif;letter-spacing:-.022em;line-height:1.06}
@@ -721,11 +696,10 @@ footer .by{margin-top:.85rem}
 
   /* ---------- theme ---------- */
   document.getElementById('themeBtn').addEventListener('click', function(){
-    var cur = root.getAttribute('data-theme');
-    if(!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    var next = cur === 'dark' ? 'light' : 'dark';
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
-    try{ localStorage.setItem('cm-theme', next); }catch(e){}
+    var tc = document.getElementById('tc');
+    if(tc) tc.setAttribute('content', next === 'dark' ? '#13100D' : '#F7F4EF');
     buzz(8);
   });
 
